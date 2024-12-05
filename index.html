@@ -12,27 +12,101 @@
     <!-- Nous n'aurons pas besoin de normalize.css, car il existe des styles
     qui font la même chose dans Bootstrap (voir fichier _reboot.scss) -->
 
+
+
     <link rel="icon" href="favicon.ico" />
     <title>Nom du site | Nom de la page</title>
 </head>
 
 
-<body class="container">
+<body>
 
-    <h1>Javascript</h1>
+    <!-- Header (à compléter) -->
+    <header>
+        <h1>Mon Application</h1>
+    </header>
 
+    <!-- Section pour le diagramme -->
+    <main>
+        <section class="diagram" id="diagram">
+            <div class="container">
+                <h2>Google charts | Diagramme de Gantt</h2>
+                <div id="chart_div" style="height: 400px; width: 100%;"></div>
+            </div>
+        </section>
+        <section id="cards-sections">
+            <div class="container">
+                <div id="taches"></div>
+            </div>
+        </section>
+    </main>
 
+<!-- Modal pour les détails de la tâche -->
+<!-- Modal pour les détails de la tâche -->
+<div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Détails de la tâche</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="taskId">
+                    
+                    <div class="mb-3">
+                        <label for="taskTitre" class="form-label">Titre</label>
+                        <input type="text" class="form-control" id="taskTitre">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="taskDateDebut" class="form-label">Date de début</label>
+                        <input type="date" class="form-control" id="taskDateDebut">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="taskDateFin" class="form-label">Date de fin</label>
+                        <input type="date" class="form-control" id="taskDateFin">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="taskDuree" class="form-label">Durée (jours)</label>
+                        <input type="number" class="form-control" id="taskDuree">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="taskPctComplete" class="form-label">% Complété</label>
+                        <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="taskDependances" class="form-label">Dépendances</label>
+                        <input type="text" class="form-control" id="taskDependances">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <h6>Minuterie de la tâche</h6>
+                        <div id="timerDisplay" class="mb-2">Temps passé : 0 jours</div>
+                        <button type="button" class="btn btn-primary" id="startTimerBtn" onclick="calculerAvancement()">Démarrer</button>
+                        <button type="button" class="btn btn-warning" id="stopTimerBtn" onclick="arreterMinuterie()" disabled>Arrêter</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" id="btnSupprimer" class="btn btn-danger">Supprimer</button>
+                <button type="button" id="btnSauvgarder" class="btn btn-primary">Sauvegarder</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+    
+    <!-- Scripts JavaScript -->
+    <script type="module" src="js/javascript-etu-1.js"></script>
+    <script src="js/fonctions-utilitaires.js" defer></script>
 
-
-
-    <!--LIEN VERS UN FICHIER SCRIPT UTILITAIRES -->
-    <script src="js/fonctions-utilitaires.js"></script>
-
-    <!--LIEN VERS NOTRE FICHIER SCRIPT PRINCIPAL-->
-    <script src="js/javascript.js"></script>
-
-    <!------------------------------------------------------------------------------------
+    <!-------</a>-----</a>------------------------------------------------------------------------
         Si on a besoin des éléments interactifs de Bootstrap, on doit utiliser au minimum
         le 2e script suivant (bootstrap.min.js) et parfois le 1er en plus (Popper)
         intégrés dans cet ordre.
@@ -41,7 +115,12 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     
-    <script src="js/javascript-etu-1.js"></script>
+        <!--Charger la bibliothèque Google Charts-->
+        <script
+        type="text/javascript"
+        src="https://www.gstatic.com/charts/loader.js"
+        ></script>
+
 </body>
 
 </html>

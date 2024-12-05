@@ -31,7 +31,7 @@
 ## Texte courant : Open Sans (https://fonts.google.com/specimen/Open+Sans)
 
 # COULEURS
-* Couleur primaire : #3498db (Bleu)
+* Couleur primaire : #3d41c1 (mauve)
 * Couleur secondaire : #2ecc71 (Vert)
 * Couleur d'accentuation : #e74c3c (Rouge)
 * Couleur de fond : #ecf0f1 (Gris clair)

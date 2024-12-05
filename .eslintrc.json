@@ -1,7 +1,8 @@
 {
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "sourceType": "module"
     },
     "env": {
         "browser": true
@@ -22,7 +23,7 @@
         "no-lonely-if": "warn",
         "semi": [
             "error",
-            "always"
+            
         ],
         "no-var": "warn",
         "no-unused-vars": "warn",
