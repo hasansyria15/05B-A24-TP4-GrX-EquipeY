@@ -81,19 +81,6 @@ function formatDate(date) { // il faut voir ca avec abir
 //         progressBar.classList.add("progress-bar-animated");
 //     } 
 // }
-// /**
-//  * @author | Hasan Al-dulaimi
-//  * function pour arreter la minuterie
-//  */
-// function arreterMinuterie() {
-//     if (temps) { // Vérifie si un timer est actif
-//         clearInterval(temps); // Arrête la minuterie
-//         temps = null; // Réinitialise la variable du timer
-//         alert("Minuterie arrêtée !");
-//     } else {
-//         alert("Aucune minuterie en cours !");
-//     }
-// }
 
 // // Ajouter les événements pour démarrer et arrêter la minuterie
 // document.getElementById('startTimer').addEventListener('click', calculerAvancement);
@@ -143,11 +130,9 @@ function calculerAvancement() {
   }, 1000); // 1 seconde = 1 jour
 }
 
-// Fonction pour arrêter la minuterie
 function arreterMinuterie() {
   clearInterval(timer);
 
-  // Réinitialiser les boutons
   document.getElementById('startTimerBtn').disabled = false;
   document.getElementById('stopTimerBtn').disabled = true;
 
