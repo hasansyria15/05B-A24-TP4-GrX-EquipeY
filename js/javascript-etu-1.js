@@ -1,6 +1,6 @@
 import { DATA_TACHES } from "./data-taches.js"; 
 import * as util from "./javascript-etu-2.js";
-import * as fctUtilitaaires from "./fonctions-utilitaires.js";
+import * as fctUtilitaires from "./fonctions-utilitaires.js";
 /*global google, bootstrap*/
 
 
@@ -19,7 +19,7 @@ function initialisation() {
 }
 
 
-let chart; // Déclaré globalement pour être accessible dans toute la portée
+export let chart; // Déclaré globalement pour être accessible dans toute la portée
 let data;  // Déclaré globalement pour être accessible dans toute la portée
 
 /**
@@ -180,69 +180,11 @@ function verfierSiDependancesExistent(idTache){
 
 
 
-/**
- * function pour recupéré le date
- * @param {*} date 
- * @returns 
- */
-function formatDate(date) { // il faut voir ca avec abir
-    if(!date) return '';
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois commencent à 0
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-}
-
 let temps; // Variable pour stocker l'identifiant du timer
 let joursRealises = 0; // Variable pour stocker le nombre de jours réalisés
 
-/**
- * @author | Hasan Al-dulaimi
- * function pour demarrer la minuterie
- */
-function calculerAvancement(){
-    // Obtenir la durée totale estimée
-    const dureeEstimee = parseInt(document.getElementById('taskDuree').value, 10);
-
-    if(joursRealises < dureeEstimee){
-        
-        // Incrémenter les jours réalisés
-        joursRealises++;
-
-        
-        //Calculer le pourcentage d'avancement
-        const pctComplete = Math.round((joursRealises / dureeEstimee) * 100);
-
-        // Mettre à jour le champ de pourcentage complété
-        document.getElementById("realisationTemps").textContent = `${joursRealises}`;
 
 
-        // Mettre à jour l'affichage du champ % d'avancement
-        document.getElementById('taskPctComplete').value = pctComplete;
-
-        // Mettre à jour la barre de progression
-        const progressBar = document.querySelector(".progress-bar");
-        progressBar.style.width = `${pctComplete}%`;
-        progressBar.textContent = `${pctComplete}%`;
-
-        // Ajouter une classe pour l'animation si nécessaire
-        progressBar.classList.add("progress-bar-animated");
-    } 
-}
-
-/**
- * @author | Hasan Al-dulaimi
- * function pour arreter la minuterie
- */
-function arreterMinuterie() {
-    if (temps) { // Vérifie si un timer est actif
-        clearInterval(temps); // Arrête la minuterie
-        temps = null; // Réinitialise la variable du timer
-        alert("Minuterie arrêtée !");
-    } else {
-        alert("Aucune minuterie en cours !");
-    }
-}
 
 /**
  * @author | Hasan Al-dulaimi
@@ -250,8 +192,7 @@ function arreterMinuterie() {
  */
 function sauvegarderChangementsTache() {
     // Obtenir l'index de la tâche sélectionnée dans le diagramme
-    const selection = chart.getSelection(); // Assurez-vous que `chart` est défini globalement
-
+    const selection = chart.getSelection(); 
     if (selection.length > 0) {
         const indexTache = selection[0].row; // Index de la tâche sélectionnée
 
