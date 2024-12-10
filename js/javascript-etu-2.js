@@ -1,6 +1,6 @@
 import { DATA_TACHES } from "./data-taches.js"; /*global google, bootstrap*/
-import { chart } from './javascript-etu-1.js';
-
+import { chart } from "./javascript-etu-1.js";
+import fctUtils from "./fonctions-utilitaires.js";
 export function recupererTacheSelectionneeDansDiagrammeDeGantt(){
 
     const selection =  chart.getSelection();
