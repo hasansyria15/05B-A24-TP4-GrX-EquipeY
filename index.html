@@ -9,9 +9,7 @@
 
     <!-- Styles de Boostrap + Styles personnalisés provenant de styles.scss -->
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Nous n'aurons pas besoin de normalize.css, car il existe des styles
-    qui font la même chose dans Bootstrap (voir fichier _reboot.scss) -->
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
     <link rel="icon" href="favicon.ico" />
@@ -42,60 +40,65 @@
     </main>
 
 <!-- Modal pour les détails de la tâche -->
-<!-- Modal pour les détails de la tâche -->
 <div class="modal fade" id="taskModal" tabindex="-1" aria-labelledby="taskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="taskModalLabel">Détails de la tâche</h5>
+                <h5 class="modal-title" id="taskModalLabel">Édition d'une tâche</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
-                    <input type="hidden" id="taskId">
-                    
                     <div class="mb-3">
-                        <label for="taskTitre" class="form-label">Titre</label>
-                        <input type="text" class="form-control" id="taskTitre">
+                        <label for="idTache" class="form-label">ID</label>
+                        <input type="text" class="form-control" id="idTache">
                     </div>
-                    
                     <div class="mb-3">
-                        <label for="taskDateDebut" class="form-label">Date de début</label>
-                        <input type="date" class="form-control" id="taskDateDebut">
+                        <label for="titreTache" class="form-label">Nom de la tâche</label>
+                        <input type="text" class="form-control" id="titreTache">
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="taskDateFin" class="form-label">Date de fin</label>
-                        <input type="date" class="form-control" id="taskDateFin">
+                    <div class="row">
+                        <div class="mb-3 col-6">
+                            <label for="dateDebut" class="form-label">Date de début</label>
+                            <input type="date" class="form-control" id="dateDebut">
+                        </div>
+                        <div class="mb-3 col-6">
+                            <label for="dateFin" class="form-label">Date de fin</label>
+                            <input type="date" class="form-control" id="dateFin">
+                        </div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="taskDuree" class="form-label">Durée (jours)</label>
-                        <input type="number" class="form-control" id="taskDuree">
+                    <div class="row">
+                        <div class="mb-3 col-4">
+                            <label for="dureeTache" class="form-label">Nb.Jour(s) estimé</label>
+                            <input type="number" class="form-control" id="dureeTache">
+                        </div>
+                        <div class="col-4">
+                            <label for="taskPctComplete" class="form-label">Réalisation (temps)</label>
+                            <div class="mb-3 input-group">
+                                <span class="input-group-text "><i class="bi bi-stopwatch"></i></span>
+                                <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                            </div>
+                        </div>
+                        <div class="mb-3 col-4">
+                            <label for="taskPctComplete" class="form-label">Avancement (%)</label>
+                            <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                        </div>
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="taskPctComplete" class="form-label">% Complété</label>
-                        <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                    <div class="mb-3 text-center">
+                        <button type="button" class="btn btn-primary  btn-icon" id="startTimerBtn" onclick="calculerAvancement()"><i class="bi bi-stopwatch"></i> Démarrer</button>
+                        <button type="button" class="btn btn-warning  btn-icon" id="stopTimerBtn" onclick="arreterMinuterie()" disabled><i class="bi bi-stopwatch"></i>Arrêter</button>
                     </div>
-                    
                     <div class="mb-3">
                         <label for="taskDependances" class="form-label">Dépendances</label>
-                        <input type="text" class="form-control" id="taskDependances">
+                        <input type="text" class="form-control" id="tacheDependance">
                     </div>
                     
-                    <div class="mb-3">
-                        <h6>Minuterie de la tâche</h6>
-                        <div id="timerDisplay" class="mb-2">Temps passé : 0 jours</div>
-                        <button type="button" class="btn btn-primary" id="startTimerBtn" onclick="calculerAvancement()">Démarrer</button>
-                        <button type="button" class="btn btn-warning" id="stopTimerBtn" onclick="arreterMinuterie()" disabled>Arrêter</button>
-                    </div>
+                
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <button type="button" id="btnSupprimer" class="btn btn-danger">Supprimer</button>
-                <button type="button" id="btnSauvgarder" class="btn btn-primary">Sauvegarder</button>
+                <button type="button" id="btnSupprimer" class="btn btn-danger">Fermer</button>
+                <button type="button" id="btnSauvgarder" class="btn btn-primary">Sauvegarder les changements</button>
             </div>
         </div>
     </div>
@@ -104,6 +107,7 @@
     
     <!-- Scripts JavaScript -->
     <script type="module" src="js/javascript-etu-1.js"></script>
+    <script type="module" src="js/javascript-etu-2.js" type = "module"></script>
     <script src="js/fonctions-utilitaires.js" defer></script>
 
     <!-------</a>-----</a>------------------------------------------------------------------------

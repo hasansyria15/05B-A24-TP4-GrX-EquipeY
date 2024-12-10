@@ -1,8 +1,10 @@
-import { DATA_TACHES } from "./data-taches.js"; /*global google, bootstrap*/
+import { DATA_TACHES } from "./data-taches.js"; 
+import * as util from "./javascript-etu-2.js";
+import * as fctUtilitaaires from "./fonctions-utilitaires.js";
+/*global google, bootstrap*/
 
 
-
-function initialiser() {
+function initialisation() {
     google.charts.load("current", { "packages" : ["gantt"] });
     google.charts.setOnLoadCallback(() => {
         chargerEtAfficherDonneesDiagrammeEtCards();
@@ -38,7 +40,7 @@ function chargerEtAfficherDonneesDiagrammeEtCards() {
     };
 
     //Ajouter l'événement de sélection
-    google.visualization.events.addListener(chart, 'select', recupererTacheSelectionneeDansDiagrammeDeGantt);
+    google.visualization.events.addListener(chart, 'select',util.recupererTacheSelectionneeDansDiagrammeDeGantt);
     // Dessiner le graphique
     chart.draw(data, options);
 
@@ -107,12 +109,12 @@ function afficherCardsTaches(){
         //Ajouter le width de card
         card.style.width = '18rem';
 
-        //Ajouter une image à la card
-        const img = document.createElement('img');
-        img.src = 'img/task.png';
-        img.alt = "Task Icon";
-        img.classList.add('card-img-top');
-        card.appendChild(img);
+        // //Ajouter une image à la card
+        // const img = document.createElement('img');
+        // img.src = 'img/task.png';
+        // img.alt = "Task Icon";
+        // img.classList.add('card-img-top');
+        // card.appendChild(img);
 
         //Ajouter le contenu de la card
         const cardBody = document.createElement('div');
@@ -142,7 +144,7 @@ function afficherCardsTaches(){
         deleteBtn.classList.add('btn', 'btn-danger', "mt-2");
         deleteBtn.textContent = 'Supprimer';
         deleteBtn.setAttribute("data-id", tache.id); // Attribut personnalisé pour identifier la tâche
-        deleteBtn.addEventListener('click', () => supprimerTache(tache.id));
+        //deleteBtn.addEventListener('click', () => supprimerTache(tache.id));
         cardBody.appendChild(deleteBtn);
 
         card.appendChild(cardBody);
@@ -176,43 +178,6 @@ function verfierSiDependancesExistent(idTache){
     
 }
 
-
-function recupererTacheSelectionneeDansDiagrammeDeGantt(){
-
-    const selection =  chart.getSelection();
-
-    if(selection.length > 0){
-        
-        if(chart !== null){
-        //Récupérer l'index de la tâche sélectionnée
-          const indexTache = selection[0].row;
-
-        // Extraire les données de la tâche à partir du DataTable
-        const tache = DATA_TACHES.detailsTache[indexTache];
-
-        // Remplir la modal avec les détails de la tâche
-        document.getElementById('taskModalLabel').textContent = tache.titre;
-        document.getElementById('taskId').value = tache.id;
-        document.getElementById('taskTitre').value = tache.titre;
-        document.getElementById('taskDateDebut').value = formatDate(tache.dateDebut);
-        document.getElementById('taskDateFin').value = formatDate(tache.dateFin);
-        document.getElementById('taskDuree').value = tache.dureeEnNbJours;
-        document.getElementById('taskPctComplete').value = tache.pctComplete;
-        document.getElementById('taskDependances').value = tache.dependances ? tache.dependances.join(', ') : '';
-
-        // Afficher la modal 
-        const modal = new bootstrap.Modal(document.getElementById('taskModal'));
-        modal.show();
-
-        }
-        
-
-    } else{
-        alert('Aucune tâche sélectionnée !');
-    }
-
-    
-}
 
 
 /**
@@ -321,4 +286,4 @@ function sauvegarderChangementsTache() {
 
 
 
-document.addEventListener("DOMContentLoaded", initialiser);
+document.addEventListener("DOMContentLoaded", initialisation);
