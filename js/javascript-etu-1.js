@@ -1,6 +1,6 @@
 import { DATA_TACHES } from "./data-taches.js"; 
 import * as util from "./javascript-etu-2.js";
-import * as fctUtilitaires from "./fonctions-utilitaires.js";
+// import * as fctUtilitaires from "./fonctions-utilitaires.js";
 /*global google, bootstrap*/
 
 
@@ -10,17 +10,11 @@ function initialisation() {
         chargerEtAfficherDonneesDiagrammeEtCards();
         
     });
-
-    // Ajouter des écouteurs d'événements aux boutons
-    /*
-    document.getElementById('startTimerBtn').addEventListener('click', startTimer);
-    document.getElementById('stopTimerBtn').addEventListener('click', stopTimer);
-    document.querySelector('#taskModal .btn-close').addEventListener('click', resetTimer);*/
 }
 
 
-export let chart; // Déclaré globalement pour être accessible dans toute la portée
-let data;  // Déclaré globalement pour être accessible dans toute la portée
+export let chart; 
+export let data;
 
 /**
  * @author | Hasan Al-dulaimi
@@ -28,44 +22,26 @@ let data;  // Déclaré globalement pour être accessible dans toute la portée
  * Function pour afficher les données dans le diagramme et les cards
  */
 function chargerEtAfficherDonneesDiagrammeEtCards() {
-
-    // 1. Créer le DataTable avec les données
     data = creerDonneesPourGraphique();
-
-    // 2. Configurer le diagramme de Gantt
     chart = new google.visualization.Gantt(document.getElementById("chart_div"));
-
     let options = {
-        height: 275, // Taille du graphique
+        height: 275,
     };
-
-    //Ajouter l'événement de sélection
     google.visualization.events.addListener(chart, 'select',util.recupererTacheSelectionneeDansDiagrammeDeGantt);
-    // Dessiner le graphique
     chart.draw(data, options);
-
-    //Appeler la fonction pour afficher les cards
     afficherCardsTaches();
 
 }
-
-
 /**
+ * @author : Hasan Al Dulaimi
  * function qui return un data table pour l'affichage
  * @returns {google.visualization.DataTable}
  */
 function creerDonneesPourGraphique(){
-
-    // Création du tableau de données
     const data = new google.visualization.DataTable();
-
-    //Ajouter des colonnes nécessaires
     DATA_TACHES.taches.forEach(tache => {
         data.addColumn(tache.type, tache.titreTache);
     });
-
-    //Ajouter des lignes a partir de DATA_TACHES
-     // Ajouter les lignes
      DATA_TACHES.detailsTache.forEach(tache => {
         const startDate = new Date(tache.dateDebut.getFullYear(), 
                                    tache.dateDebut.getMonth(), 
@@ -87,75 +63,129 @@ function creerDonneesPourGraphique(){
 
     return data;
 }
-
 /**
- * @author | Hasan Al-dulaimi
+ * 
+ * @param {*} pImage 
+ * @param {*} pTitre 
+ * @param {*} pDescription 
+ * @param {*} pEstAvecBouton 
+ * @param {*} pElementHTMLBouton 
+ * @returns 
+ */
+function creerCard(pImage, pTitre, pDescription, pEstAvecBouton = false, pElementHTMLBouton = '') {
+    const card = document.createElement('div');
+    card.classList.add('card', 'p-3', 'shadow-sm');
+    card.style.width = '18rem';
+    if (pImage) {
+        const img = document.createElement('img');
+        img.src = pImage;
+        img.alt = pTitre || 'Image de la carte';
+        img.classList.add('card-img-top');
+        card.appendChild(img);
+    }
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+    if (pTitre) {
+        const titre = document.createElement('h5');
+        titre.classList.add('card-title');
+        titre.textContent = pTitre;
+        cardBody.appendChild(titre);
+    }
+    if (pDescription) {
+        const description = document.createElement('p');
+        description.classList.add('card-text');
+        description.textContent = pDescription;
+        cardBody.appendChild(description);
+    }
+    if (pEstAvecBouton && pElementHTMLBouton) {
+        const boutonContainer = document.createElement('div');
+        boutonContainer.innerHTML = pElementHTMLBouton; 
+        cardBody.appendChild(boutonContainer.firstChild);
+    }
+    card.appendChild(cardBody);
+    return card; 
+}
+/**
+ * @author | Hasan Al-dulaimi 
  * Function pour afficher les cards des taches
  */
-function afficherCardsTaches(){
+function afficherCardsTaches() {
+
     const taches = document.getElementById('taches');
-
+    taches.textContent = '';
     taches.classList.add("d-flex", "flex-wrap", "gap-3");
-
-    // Vider le conteneur avant de réafficher
-
     DATA_TACHES.detailsTache.forEach(tache => {
-        //Créer une card Bootstrap
         const card = document.createElement('div');
-
-        //Ajouter les classes Bootstrap
         card.classList.add('card', 'p-3', 'shadow-sm');
-
-        //Ajouter le width de card
-        card.style.width = '18rem';
-
-        // //Ajouter une image à la card
-        // const img = document.createElement('img');
-        // img.src = 'img/task.png';
-        // img.alt = "Task Icon";
-        // img.classList.add('card-img-top');
-        // card.appendChild(img);
-
-        //Ajouter le contenu de la card
+        card.style.width = '18rem'; 
+        const img = document.createElement('img');
+        img.src = 'image/tache.jpeg';
+        img.alt = "Task Icon";
+        img.classList.add('card-img-top');
+        card.appendChild(img);
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
-
         const titre = document.createElement('h5');
         titre.classList.add('card-title');
         titre.textContent = `${tache.id}: ${tache.titre}`;
         cardBody.appendChild(titre);
-
         const description = document.createElement('dl');
-        for(let key in tache){
+        for (let key in tache) {
             const dt = document.createElement('dt');
             dt.textContent = key;
-
             const dd = document.createElement('dd');
-
             dd.textContent = tache[key];
-
             description.appendChild(dt);
             description.appendChild(dd);
         }
         cardBody.appendChild(description);
-
-        //Bouton de suppression
         const deleteBtn = document.createElement('button');
-        deleteBtn.classList.add('btn', 'btn-danger', "mt-2");
+        deleteBtn.classList.add('btn', 'btn-danger', 'mt-2');
         deleteBtn.textContent = 'Supprimer';
-        deleteBtn.setAttribute("data-id", tache.id); // Attribut personnalisé pour identifier la tâche
-        //deleteBtn.addEventListener('click', () => supprimerTache(tache.id));
+        deleteBtn.setAttribute('data-id', tache.id); 
+        deleteBtn.addEventListener('click', supprimerTache);
         cardBody.appendChild(deleteBtn);
-
         card.appendChild(cardBody);
-
-
-        //Ajouter la card au conteneur
         taches.appendChild(card);
-
-    })
-
+    });
 }
+/**
+ * @author : Abir Aymaz et Hasan Al Dulaimi
+ * Supprimer une tâche dont le Id est spécifié dans un attribut HTML personnalisé « data-id »
+ *  dans les données du graphique et réafficher les cards, puis redessiner le graphique
+ * @param {*} e 
+ * @returns 
+ */
+const supprimerTache = (e) => {
+    const idTache = e.target.getAttribute('data-id');
+    if (!idTache) {
+        alert("ID de la tâche non trouvé !");
+        return;
+    }
+    if (verifierSiDependanceExiste(idTache)) {
+        alert("Impossible de supprimer cette tâche : elle a des dépendances !");
+        return;
+    }
+    const cardElement = e.target.parentElement.parentElement; 
+    if (cardElement) {
+        cardElement.remove();
+    }
+    let indexTache = -1;
+    for (let i = 0; i < data.getNumberOfRows(); i++) {
+        if (data.getValue(i, 0) === idTache) {
+            indexTache = i;
+            break;
+        }
+    }
+
+    if (indexTache === -1) {
+        alert("Tâche introuvable dans les données !");
+        return;
+    }
+    data.removeRow(indexTache);
+    chart.draw(data);
+    alert("Tâche supprimée avec succès !");
+};
 
 /**
  * @author | Hasan Al-dulaimi
@@ -163,9 +193,7 @@ function afficherCardsTaches(){
  * @param {*} idTache 
  * @returns | retur vrai si la tache a des dependances
  */
-function verfierSiDependancesExistent(idTache){
-
-    //parcourir les taches
+function verifierSiDependanceExiste(idTache){
     for(let tache of DATA_TACHES.detailsTache){
         if(tache.dependances){
             if(tache.dependances.includes(idTache)){
@@ -173,58 +201,7 @@ function verfierSiDependancesExistent(idTache){
             }
         }
     }
-
     return false;
-    
 }
-
-
-
-let temps; // Variable pour stocker l'identifiant du timer
-let joursRealises = 0; // Variable pour stocker le nombre de jours réalisés
-
-
-
-
-/**
- * @author | Hasan Al-dulaimi
- * function pour sauvegarder les modifications
- */
-function sauvegarderChangementsTache() {
-    // Obtenir l'index de la tâche sélectionnée dans le diagramme
-    const selection = chart.getSelection(); 
-    if (selection.length > 0) {
-        const indexTache = selection[0].row; // Index de la tâche sélectionnée
-
-        // Récupérer les données modifiées depuis le formulaire/modal
-        const id = document.getElementById("taskId").value;
-        const titre = document.getElementById("taskTitre").value;
-        const dateDebut = new Date(document.getElementById("taskDateDebut").value);
-        const dateFin = new Date(document.getElementById("taskDateFin").value);
-        const duree = parseInt(document.getElementById("taskDuree").value, 10);
-        const pctComplete = parseInt(document.getElementById("taskPctComplete").value, 10);
-        const dependances = document.getElementById("taskDependances").value
-            .split(",")
-            .map(dep => dep.trim());
-
-        // Mettre à jour le DataTable
-        data.setValue(indexTache, 0, id);
-        data.setValue(indexTache, 1, titre);
-        data.setValue(indexTache, 2, dateDebut);
-        data.setValue(indexTache, 3, dateFin);
-        data.setValue(indexTache, 4, duree);
-        data.setValue(indexTache, 5, pctComplete);
-        data.setValue(indexTache, 6, dependances.join(","));
-
-        // Rafraîchir le graphique
-        chart.draw(data);
-
-        alert("Les changements ont été sauvegardés avec succès !");
-    } else {
-        alert("Aucune tâche sélectionnée pour la modification !");
-    }
-}
-
-
 
 document.addEventListener("DOMContentLoaded", initialisation);

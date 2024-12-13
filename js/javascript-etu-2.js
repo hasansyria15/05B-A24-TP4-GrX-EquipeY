@@ -1,6 +1,8 @@
 import { DATA_TACHES } from "./data-taches.js"; /*global google, bootstrap*/
 import { chart } from "./javascript-etu-1.js";
-import fctUtils from "./fonctions-utilitaires.js";
+import { data } from "./javascript-etu-1.js";
+
+// import fctUtils from "./fonctions-utilitaires.js";
 export function recupererTacheSelectionneeDansDiagrammeDeGantt() {
   const selection = chart.getSelection();
 
@@ -45,37 +47,6 @@ function formatDate(date) {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
-// /**
-//  * @author | Hasan Al-dulaimi
-//  * function pour demarrer la minuterie
-//  */
-// function calculerAvancement(){
-//     // Obtenir la durée totale estimée
-//     const dureeEstimee = parseInt(document.getElementById('dureeTache').value, 10);
-
-//     if(joursRealises < dureeEstimee){
-
-//         // Incrémenter les jours réalisés
-//         joursRealises++;
-
-//         //Calculer le pourcentage d'avancement
-//         const pctComplete = Math.round((joursRealises / dureeEstimee) * 100);
-
-//         // Mettre à jour le champ de pourcentage complété
-//         document.getElementById("realisationTemps").textContent = `${joursRealises}`;
-
-//         // Mettre à jour l'affichage du champ % d'avancement
-//         document.getElementById('taskPctComplete').value = pctComplete;
-
-//         // Mettre à jour la barre de progression
-//         const progressBar = document.querySelector(".progress-bar");
-//         progressBar.style.width = `${pctComplete}%`;
-//         progressBar.textContent = `${pctComplete}%`;
-
-//         // Ajouter une classe pour l'animation si nécessaire
-//         progressBar.classList.add("progress-bar-animated");
-//     }
-// }
 
 // // Ajouter les événements pour démarrer et arrêter la minuterie
 // document.getElementById('startTimer').addEventListener('click', calculerAvancement);
@@ -160,21 +131,30 @@ const sauvegarderChangementsTache = () => {
   const tabDepandance = dependancesInput.split(",");
 
   for (let dep of tabDepandance) {
-    const depTrime = dep.trim(); 
+    const depTrime = dep.trim();
     if (depTrime) {
-      dependances.push(depTrime); 
+      dependances.push(depTrime);
     }
   }
-  data.setValue(indexTache, 0, id); 
-  data.setValue(indexTache, 1, titre); 
-  data.setValue(indexTache, 2, dateDebut); 
-  data.setValue(indexTache, 3, dateFin); 
-  data.setValue(indexTache, 4, duree);
-  data.setValue(indexTache, 5, pctComplete); 
-  data.setValue(indexTache, 6, dependances.join(",")); 
-  chart.draw(data);
-  alert("Les changements ont été sauvegardés avec succès !");
+  if (data && chart) {
+    data.setValue(indexTache, 0, id);
+    data.setValue(indexTache, 1, titre);
+    data.setValue(indexTache, 2, dateDebut);
+    data.setValue(indexTache, 3, dateFin);
+    data.setValue(indexTache, 4, duree);
+    data.setValue(indexTache, 5, pctComplete);
+    data.setValue(indexTache, 6, dependances.join(","));
+    chart = new google.visualization.Gantt(document.getElementById("chart_div"));
+    chart.draw(data);
+    alert("Les modifications ont été enregistrées !");
+  } else {
+    console.error("DataTable ou chart introuvable !");
+  }
 };
+document
+  .getElementById("btnSauvegarder")
+  .addEventListener("click", sauvegarderChangementsTache);
+
 
 // Événement pour démarrer la minuterie
 document
