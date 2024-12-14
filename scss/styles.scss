@@ -17,47 +17,51 @@ $couleur-titre: #c7374f;
 $couleur-secondaire : #6a3268;
 $couleur-primaire : #0974AF;
 $couleur-fond : #1a5164;
-
-header {
-  margin: 60px;
-  border-bottom: 1px solid $couleur-texte;
-  h1 {
-    color: $couleur-titre;
-    @extend %titres;
-  }
-}
-main {
-  h2 {
-    @extend %titres;
-    color: $couleur-fond;
-    margin-bottom: 20px;
-  }
-  #chart_div {
-    height: 400px;
-    width: 100%;
-    margin-top: 40px;
-  }
-  .card-title {
-    color:$couleur-secondaire;
-  }
-  dt {
-    color :$couleur-primaire;
-  }
-  dd {
-    color: $couleur-texte;
-  }
-  .btn-danger {
-    background-color:$couleur-secondaire;
-    border: none;
-    &:hover{
-        background-color: $couleur-fond
-        ;
+body{
+  @extend %texte;
+  header {
+    margin: 60px;
+    border-bottom: 1px solid $couleur-texte;
+    h1 {
+      color: $couleur-titre;
+      @extend %titres;
     }
   }
+  main {
+  
+    h2 {
+      @extend %titres;
+      color: $couleur-fond;
+      margin-bottom: 20px;
+    }
+    #chart_div {
+      height: 400px;
+      width: 100%;
+      margin-top: 40px;
+    }
+    .card-title {
+      color:$couleur-secondaire;
+    }
+    dt {
+      color :$couleur-primaire;
+    }
+    dd {
+      color: $couleur-texte;
+    }
+    .btn-danger {
+      background-color:$couleur-secondaire;
+      border: none;
+      &:hover{
+          background-color: $couleur-fond
+          ;
+      }
+    }
+  }
+  footer{
+      color: $couleur-primaire;
+      border-top: 1px solid $couleur-fond;
+      padding: 20px;
+      margin: 20px;
+  }
 }
-footer{
-    color: $couleur-primaire;
-    border-top: 1px solid $couleur-fond;
-    padding: 20px;
-    margin: 20px;
-}
+
