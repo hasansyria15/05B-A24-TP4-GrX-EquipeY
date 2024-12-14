@@ -15,8 +15,8 @@
 $couleur-fonce: #1c384c;
 $couleur-rouge: #c7374f;
 $couleur-secondaire : #6a3268;
-$couleur-orange : #e38f2e;
-$couleur-jaune : #d6c85d;
+$couleur-orange : #0974AF;
+$couleur-vert : #1a5164;
 
 header {
   margin: 60px;
@@ -29,7 +29,7 @@ header {
 main {
   h2 {
     @extend %titres;
-    color: $couleur-jaune;
+    color: $couleur-vert;
     margin-bottom: 20px;
   }
   #chart_div {
@@ -50,14 +50,14 @@ main {
     background-color:$couleur-secondaire;
     border: none;
     &:hover{
-        background-color: $couleur-jaune
+        background-color: $couleur-vert
         ;
     }
   }
 }
 footer{
     color: $couleur-orange;
-    border-top: 1px solid $couleur-jaune;
+    border-top: 1px solid $couleur-vert;
     padding: 20px;
     margin: 20px;
 }

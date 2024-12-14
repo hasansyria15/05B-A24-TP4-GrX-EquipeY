@@ -12380,7 +12380,7 @@ header h1, header .h1 {
 }
 
 main h2, main .h2 {
-  color: #d6c85d;
+  color: #1a5164;
   margin-bottom: 20px;
 }
 main #chart_div {
@@ -12392,7 +12392,7 @@ main .card-title {
   color: #6a3268;
 }
 main dt {
-  color: #e38f2e;
+  color: #0974AF;
 }
 main dd {
   color: #1c384c;
@@ -12402,12 +12402,12 @@ main .btn-danger {
   border: none;
 }
 main .btn-danger:hover {
-  background-color: #d6c85d;
+  background-color: #1a5164;
 }
 
 footer {
-  color: #e38f2e;
-  border-top: 1px solid #d6c85d;
+  color: #0974AF;
+  border-top: 1px solid #1a5164;
   padding: 20px;
   margin: 20px;
 }/*# sourceMappingURL=styles.css.map */

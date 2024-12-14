@@ -125,7 +125,7 @@ function afficherCardsTaches() {
         card.appendChild(img);
         const cardBody = document.createElement('div');
         cardBody.classList.add('card-body');
-        const titre = document.createElement('h3');
+        const titre = document.createElement('h4');
         titre.classList.add('card-title');
         titre.textContent = `${tache.id}: ${tache.titre}`;
         cardBody.appendChild(titre);
