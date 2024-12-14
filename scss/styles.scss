@@ -1,7 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
 /** VOS $VARIABLES Sass ici avant l'importation**/
-
 
 /*** Importation de Boostrap **/
 @import "partials/bootstrap";
-
+@import "partials/_buttons.scss";
 /*** Début des styles personnalisés ***/
+%titres {
+  font-family: "Noto Sans", sans-serif;
+}
+%texte {
+  font-family: "Montserrat", sans-serif;
+}
+$couleur-fonce: #1c384c;
+$couleur-rouge: #c7374f;
+$couleur-secondaire : #6a3268;
+$couleur-orange : #e38f2e;
+$couleur-jaune : #d6c85d;
+
+header {
+  margin: 60px;
+  border-bottom: 1px solid $couleur-fonce;
+  h1 {
+    color: $couleur-rouge;
+    @extend %titres;
+  }
+}
+main {
+  h2 {
+    @extend %titres;
+    color: $couleur-jaune;
+    margin-bottom: 20px;
+  }
+  #chart_div {
+    height: 400px;
+    width: 100%;
+    margin-top: 40px;
+  }
+  .card-title {
+    color:$couleur-secondaire;
+  }
+  dt {
+    color :$couleur-orange;
+  }
+  dd {
+    color: $couleur-fonce;
+  }
+  .btn-danger {
+    background-color:$couleur-secondaire;
+    border: none;
+    &:hover{
+        background-color: $couleur-jaune
+        ;
+    }
+  }
+}
+footer{
+    color: $couleur-orange;
+    border-top: 1px solid $couleur-jaune;
+    padding: 20px;
+    margin: 20px;
+}
