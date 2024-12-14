@@ -1,37 +1,29 @@
 import { DATA_TACHES } from "./data-taches.js"; /*global google, bootstrap*/
 import { chart } from "./javascript-etu-1.js";
 import { data } from "./javascript-etu-1.js";
-
-// import fctUtils from "./fonctions-utilitaires.js";
+/**
+ * @author : Abir Aymaz
+ * Fonction qui permet d'ouvrir la fenêtre modale et d'afficher les informations
+ */
 export function recupererTacheSelectionneeDansDiagrammeDeGantt() {
   const selection = chart.getSelection();
-
   if (selection.length > 0) {
     if (chart !== null) {
-      //Récupérer l'index de la tâche sélectionnée
       const indexTache = selection[0].row;
-
-      // Extraire les données de la tâche à partir du DataTable
       const tache = DATA_TACHES.detailsTache[indexTache];
-
-      // Remplir la modal avec les détails de la tâche
       document.getElementById("idTache").value = tache.id;
       document.getElementById("titreTache").value = tache.titre;
       document.getElementById("dateDebut").value = formatDate(tache.dateDebut);
       document.getElementById("dateFin").value = formatDate(tache.dateFin);
       document.getElementById("dureeTache").value = tache.dureeEnNbJours;
-      document.getElementById("taskPctComplete").value = tache.pctComplete;
+      document.getElementById("avancement").value = tache.pctComplete;
       document.getElementById("tacheDependance").value = tache.dependances
         ? tache.dependances.join(", ")
         : "";
-
-      // Afficher la modal
       const modal = new bootstrap.Modal(document.getElementById("taskModal"));
       modal.show();
     }
-  } else {
-    alert("Aucune tâche sélectionnée !");
-  }
+  } 
 }
 
 /**
@@ -40,69 +32,50 @@ export function recupererTacheSelectionneeDansDiagrammeDeGantt() {
  * @returns
  */
 function formatDate(date) {
-  // il faut voir ca avec abir
-  if (!date) return "";
+  if (!date) 
+    return "";
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Les mois commencent à 0
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
+let timer; 
+let joursRealises = 0;
+let joursEstimes = 0; 
 
-// // Ajouter les événements pour démarrer et arrêter la minuterie
-// document.getElementById('startTimer').addEventListener('click', calculerAvancement);
-// document.getElementById('stopTimer').addEventListener('click', arreterMinuterie);
-let timer; // Variable pour la minuterie
-let joursRealises = 0; // Jours simulés
-let joursEstimes = 0; // Nombre de jours estimés pour terminer la tâche
-
-// Fonction pour démarrer la minuterie
+/**
+ * @author Abir Aymaz
+ * Cette fonction est appelée par une minuterie aux secondes. Elle compte les secondes et les affiche dans le champ Réalisation.
+ */
 function calculerAvancement() {
-  // Récupérer la durée estimée depuis le champ "dureeTache"
   joursEstimes = parseInt(document.getElementById("dureeTache").value, 10);
-
-  if (isNaN(joursEstimes) || joursEstimes <= 0) {
-    alert("Veuillez entrer une durée valide pour la tâche.");
-    return;
-  }
-
-  // Activer le bouton "Stop" et désactiver "Start"
   document.getElementById("startTimerBtn").disabled = true;
   document.getElementById("stopTimerBtn").disabled = false;
-
-  // Mettre à jour la minuterie toutes les secondes
   timer = setInterval(() => {
     joursRealises++;
-
-    // Calculer le pourcentage d'avancement
     const pourcentage = Math.min((joursRealises / joursEstimes) * 100, 100);
-
-    // Mettre à jour le champ "Réalisation"
     document.getElementById("taskPctComplete").value = joursRealises;
-
-    // Mettre à jour la barre de progression (progress-bar)
     const progressBar = document.querySelector(".progress-bar");
     if (progressBar) {
       progressBar.style.width = `${pourcentage}%`;
       progressBar.textContent = `${Math.floor(pourcentage)}%`;
     }
-
-    // Si l'avancement atteint 100 %, arrêter la minuterie
     if (pourcentage >= 100) {
       clearInterval(timer);
       alert("Tâche terminée !");
       document.getElementById("startTimerBtn").disabled = false;
       document.getElementById("stopTimerBtn").disabled = true;
     }
-  }, 1000); // 1 seconde = 1 jour
+  }, 1000);
 }
-
+/**
+ * @author Abir Aymaz
+ * Fonction qui arrête la minuterie
+ */
 function arreterMinuterie() {
   clearInterval(timer);
-
   document.getElementById("startTimerBtn").disabled = false;
   document.getElementById("stopTimerBtn").disabled = true;
-
-  console.log("Minuterie arrêtée.");
 }
 
 /**
@@ -129,7 +102,6 @@ const sauvegarderChangementsTache = () => {
   const dependancesInput = document.getElementById("tacheDependance").value;
   const dependances = [];
   const tabDepandance = dependancesInput.split(",");
-
   for (let dep of tabDepandance) {
     const depTrime = dep.trim();
     if (depTrime) {
@@ -146,22 +118,14 @@ const sauvegarderChangementsTache = () => {
     data.setValue(indexTache, 6, dependances.join(","));
     chart = new google.visualization.Gantt(document.getElementById("chart_div"));
     chart.draw(data);
-    alert("Les modifications ont été enregistrées !");
-  } else {
-    console.error("DataTable ou chart introuvable !");
   }
 };
 document
   .getElementById("btnSauvegarder")
   .addEventListener("click", sauvegarderChangementsTache);
-
-
-// Événement pour démarrer la minuterie
 document
   .getElementById("startTimerBtn")
   .addEventListener("click", calculerAvancement);
-
-// Événement pour arrêter la minuterie
 document
   .getElementById("stopTimerBtn")
   .addEventListener("click", arreterMinuterie);

@@ -18,12 +18,9 @@
 
 
 <body>
-
-    <!-- Header (à compléter) -->
-    <header>
-        <h1>Mon Application</h1>
+    <header class="container">
+        <h1>Gestionnaire de tâches</h1>
     </header>
-
     <!-- Section pour le diagramme -->
     <main>
         <section class="diagram" id="diagram">
@@ -75,13 +72,17 @@
                         <div class="col-4">
                             <label for="taskPctComplete" class="form-label">Réalisation (temps)</label>
                             <div class="mb-3 input-group">
-                                <span class="input-group-text "><i class="bi bi-stopwatch"></i></span>
-                                <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                                <span class="input-group-text"><i class="bi bi-stopwatch"></i></span>
+                                <input type="text" class="form-control" id="taskPctComplete"placeholder="Nb jours" >
                             </div>
                         </div>
                         <div class="mb-3 col-4">
-                            <label for="taskPctComplete" class="form-label">Avancement (%)</label>
-                            <input type="number" class="form-control" id="taskPctComplete" min="0" max="100">
+                            <label for="avancement" class="form-label">Avancement (%)</label>
+                            <input type="text" class="form-control" id="avancement">
+                            <div class="progress" style="height: 20px; margin-top: 10px;">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              
                         </div>
                     </div>
                     <div class="mb-3 text-center">
@@ -103,7 +104,12 @@
         </div>
     </div>
 </div>
-
+<footer class="footer mt-5">
+    <div class="container d-flex justify-content-between">
+        <p>05B.WEB2 | Développement Web côté client</p>
+        <p>©Copyright 2024 - Abir Aymaz et Hasan Al-dulaimi - Tous droits réservés</p>
+    </div>
+</footer>
     
     <!-- Scripts JavaScript -->
     <script type="module" src="js/javascript-etu-1.js" type="module"></script>
