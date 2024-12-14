@@ -12,24 +12,24 @@
 %texte {
   font-family: "Montserrat", sans-serif;
 }
-$couleur-fonce: #1c384c;
-$couleur-rouge: #c7374f;
+$couleur-texte: #1c384c;
+$couleur-titre: #c7374f;
 $couleur-secondaire : #6a3268;
-$couleur-orange : #0974AF;
-$couleur-vert : #1a5164;
+$couleur-primaire : #0974AF;
+$couleur-fond : #1a5164;
 
 header {
   margin: 60px;
-  border-bottom: 1px solid $couleur-fonce;
+  border-bottom: 1px solid $couleur-texte;
   h1 {
-    color: $couleur-rouge;
+    color: $couleur-titre;
     @extend %titres;
   }
 }
 main {
   h2 {
     @extend %titres;
-    color: $couleur-vert;
+    color: $couleur-fond;
     margin-bottom: 20px;
   }
   #chart_div {
@@ -41,23 +41,23 @@ main {
     color:$couleur-secondaire;
   }
   dt {
-    color :$couleur-orange;
+    color :$couleur-primaire;
   }
   dd {
-    color: $couleur-fonce;
+    color: $couleur-texte;
   }
   .btn-danger {
     background-color:$couleur-secondaire;
     border: none;
     &:hover{
-        background-color: $couleur-vert
+        background-color: $couleur-fond
         ;
     }
   }
 }
 footer{
-    color: $couleur-orange;
-    border-top: 1px solid $couleur-vert;
+    color: $couleur-primaire;
+    border-top: 1px solid $couleur-fond;
     padding: 20px;
     margin: 20px;
 }

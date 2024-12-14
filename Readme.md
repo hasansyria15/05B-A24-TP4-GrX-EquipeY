@@ -41,10 +41,10 @@
 ## Texte courant : Montserrat (https://fonts.google.com/selection/embed)
 
 # COULEURS
-* Couleur primaire : #e38f2e 
+* Couleur primaire : #0974AF 
 * Couleur secondaire : #6a3268 
 * Couleur d'accentuation : #c7374f 
-* Couleur de fond : #d6c85d 
+* Couleur de fond : #1a5164 
 * Couleur de texte : #1c384c
 
 
